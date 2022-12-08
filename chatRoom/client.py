@@ -61,8 +61,7 @@ def client_send(event=None):
         if(amIAdmin and message == f'{nickname} : #GAMEEND\n'):
             client.send('Ending game...\n'.encode('utf-8'))
             
-            
-
+        
 
 
 # Button for send message
