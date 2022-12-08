@@ -22,9 +22,8 @@ if firstLetter == False:
     showLetter()
     firstLetter = True
 
-turns = 20
 
-while turns > 0:
+while True:
 
     if fails == 3:
         showLetter()
@@ -41,7 +40,7 @@ while turns > 0:
             failed += 1
 
     if failed == 0:
-        print('You win!')
+        print('\nYou win!')
         print('The word is: ', word)
         break
 
@@ -51,12 +50,8 @@ while turns > 0:
     guesses += guess
 
     if guess not in word:
-        turns -= 1
         fails += 1
         print('Wrong')
-        print('You have', + turns, 'more guesses')
         print('You have failed ', + fails, ' times')
 
-        if turns == 0:
-            print('You lose')
 
