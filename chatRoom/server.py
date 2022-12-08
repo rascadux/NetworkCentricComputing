@@ -11,7 +11,6 @@ import threading
 import socket
 from colorama import Fore, Back, Style
 import time
-import game
 
 host = 'localhost'
 port = 58000

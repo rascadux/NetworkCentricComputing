@@ -2,7 +2,6 @@ import random
 
 words = ['apple', 'banana', 'orange', 'strawberry', 'grape', 'blueberry', 'melon', 'lemon', 'lime', 'coconut', 'apricot', 'watermelon', 'peach', 'cherry', 'pineapple', 'kiwi', 'mango', 'papaya', 'pear', 'peanut']
 
-
 word = random.choice(words)
 
 firstLetter = False
@@ -52,7 +51,9 @@ def runGame():
             break
 
         print()
-        guess = input("Guess a character: ")
+        print('Guess a character: ')
+        guess = input("")
+
 
         guesses += guess
 
