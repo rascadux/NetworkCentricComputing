@@ -49,12 +49,14 @@ client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(('localhost', 58000))
 
 # Send messages to server
-def client_send():
+# I pass event as parameter to use the return key as sender 
+def client_send(event=None):
     message = f'{nickname} : {txtYourMessage.get()}\n'
     client.send(message.encode('utf-8'))
     ########################################################## GAME ##########################################################
     if(message == f'{nickname} : #GAMESTART\n' and amIAdmin):
             client.send('Starting game...\n'.encode('utf-8'))
+
     else:
         if(amIAdmin and message == f'{nickname} : #GAMEEND\n'):
             client.send('Ending game...\n'.encode('utf-8'))
@@ -66,6 +68,7 @@ def client_send():
 # Button for send message
 btnSendMessage = tkinter.Button(window, text="Send", width=20, command=client_send)
 btnSendMessage.grid(row=3, column=0, padx=10, pady=10)
+window.bind('<Return>', client_send)
 
 
 # Receive messages from server
