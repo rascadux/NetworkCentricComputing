@@ -11,6 +11,7 @@ import threading
 import socket
 from colorama import Fore, Back, Style
 import time
+import game
 
 host = 'localhost'
 port = 58000
@@ -60,7 +61,7 @@ def receive():
         nickname = client.recv(1024).decode('utf-8')
         # Remove the ': \n' from the nickname
         nickname = nickname[:-4]
-        
+
         print(nickname)
         nicknames.append(nickname)
         clients.append(client)

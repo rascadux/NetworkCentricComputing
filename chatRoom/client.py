@@ -2,6 +2,7 @@ import threading
 import socket
 import tkinter
 import time
+import game
 
 # TKINTER INTERFACE 
 
@@ -53,13 +54,17 @@ client.connect(('localhost', 58000))
 def client_send(event=None):
     message = f'{nickname} : {txtYourMessage.get()}\n'
     client.send(message.encode('utf-8'))
-    ########################################################## GAME ##########################################################
+
     if(message == f'{nickname} : #GAMESTART\n' and amIAdmin):
             client.send('Starting game...\n'.encode('utf-8'))
+            time.sleep(0.1)
+            # RUN GAME
+            game.runGame()
 
     else:
         if(amIAdmin and message == f'{nickname} : #GAMEEND\n'):
             client.send('Ending game...\n'.encode('utf-8'))
+            game.end = True
             
         
 

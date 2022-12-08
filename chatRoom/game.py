@@ -8,6 +8,7 @@ word = random.choice(words)
 firstLetter = False
 guesses = ''
 fails = 0
+end = False
 
 def showLetter():
     for char in word[random.randint(0, len(word)-1)]:
@@ -18,40 +19,46 @@ def showLetter():
         else:
             showLetter()
 
-if firstLetter == False:
-    showLetter()
-    firstLetter = True
 
 
-while True:
+def runGame():
 
-    if fails == 3:
+    global guesses, fails, firstLetter, end
+
+
+    if firstLetter == False:
         showLetter()
-        fails = 0
+        firstLetter = True
 
-    failed = 0
+    while end != True:
 
-    for char in word:
-        if char in guesses:
-            print(char, end=' ')
+        if fails == 3:
+            showLetter()
+            fails = 0
 
-        else:
-            print('_', end=' ')
-            failed += 1
+        failed = 0
 
-    if failed == 0:
-        print('\nYou win!')
-        print('The word is: ', word)
-        break
+        for char in word:
+            if char in guesses:
+                print(char, end=' ')
 
-    print()
-    guess = input("Guess a character: ")
+            else:
+                print('_', end=' ')
+                failed += 1
 
-    guesses += guess
+        if failed == 0:
+            print('\nYou win!')
+            print('The word is: ', word)
+            break
 
-    if guess not in word:
-        fails += 1
-        print('Wrong')
-        print('You have failed ', + fails, ' times')
+        print()
+        guess = input("Guess a character: ")
+
+        guesses += guess
+
+        if guess not in word:
+            fails += 1
+            print('Wrong')
+            print('You have failed ', + fails, ' times')
 
 
