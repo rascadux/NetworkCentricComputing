@@ -4,7 +4,7 @@ import tkinter
 import time
 import sys
 import random
-from game import runGame, end
+
 
 # TKINTER INTERFACE 
 
@@ -39,14 +39,6 @@ window.eval('tk::PlaceWindow . center')
 txtMessages = tkinter.Text(window, width=50)
 txtMessages.grid(row=1, column=0, padx=10, pady=10)
 
-'''
-# Redirect output to text box
-def redirector(inputStr):
-    txtMessages.insert(tkinter.END, inputStr)
-
-sys.stdout.write = redirector
-sys.stderr.write = redirector
-'''
 
 # Your message box
 yourMessageLabl = tkinter.Label(window, text="Your message:").place(x=10, y=328)
@@ -57,34 +49,12 @@ txtYourMessage.grid(row=2, column=0, padx=10, pady=10)
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(('localhost', 58000))
 
-#GAME CODE
-
-words = ['apple', 'banana', 'orange', 'strawberry', 'grape', 'blueberry', 'melon', 'lemon', 'lime', 'coconut', 'apricot', 'watermelon', 'peach', 'cherry', 'pineapple', 'kiwi', 'mango', 'papaya', 'pear', 'peanut']
-
-word = random.choice(words)
-
-firstLetter = False
-guesses = ''
-fails = 0
-end = False
 
 # Send messages to server
 # I pass event as parameter to use the return key as sender 
 def client_send(event=None):
     message = f'{nickname} : {txtYourMessage.get()}\n'
-    client.send(message.encode('utf-8'))
-
-    if(message == f'{nickname} : #GAMESTART\n' and amIAdmin):
-            client.send('Starting game...\n'.encode('utf-8'))
-            
-            # RUN GAME
-            runGame()
-
-    else:
-        if(amIAdmin and message == f'{nickname} : #GAMEEND\n'):
-            client.send('Ending game...\n'.encode('utf-8'))
-            end = True
-            
+    client.send(message.encode('utf-8'))           
         
 
 
@@ -100,12 +70,7 @@ def client_receive():
         try:
             # Receive message from server
             message = client.recv(1024).decode('utf-8')
-            #Check if I am the administrator
-            if message == 'You are the administrator\n':
-                global amIAdmin
-                amIAdmin = True
-
-            # Print message    
+            # Print message
             print(message)
             txtMessages.insert(tkinter.END, message)
             txtYourMessage.delete(0, tkinter.END)

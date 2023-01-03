@@ -9,6 +9,7 @@ guesses = ''
 fails = 0
 end = False
 
+
 def showLetter():
     for char in word[random.randint(0, len(word)-1)]:
         global guesses
